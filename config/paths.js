@@ -45,5 +45,6 @@ module.exports = {
   yarnLockFile: resolveApp('yarn.lock'),
   appNodeModules: resolveApp('node_modules'),
   publicUrl: getPublicUrl(resolveApp('package.json')),
-  servedPath: getServedPath(resolveApp('package.json'))
+  servedPath: getServedPath(resolveApp('package.json')),
+  eslintConfig: resolveApp('/src/renderer/.eslintrc.json')
 };

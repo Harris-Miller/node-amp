@@ -48,8 +48,8 @@ module.exports = {
           {
             options: {
               formatter: eslintFormatter,
-              eslintPath: require.resolve('eslint')
-
+              eslintPath: require.resolve('eslint'),
+              config: paths.eslintConfig
             },
             loader: require.resolve('eslint-loader')
           }
