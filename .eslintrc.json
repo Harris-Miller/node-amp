@@ -1,4 +1,7 @@
 {
   "root": true,
-  "extends": "eslint-config-harris/node-recommended"
+  "extends": "eslint-config-harris/node-recommended",
+  "rules": {
+    "no-console": 0
+  }
 }

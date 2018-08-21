@@ -1,5 +1,14 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import store from './store';
+import Player from './scenes/player';
+import Browser from './scenes/browser';
 
 export default () => (
-  <h1>Hello World!</h1>
+  <Provider store={store}>
+    <div>
+      <Player />
+      <Browser />
+    </div>
+  </Provider>
 );

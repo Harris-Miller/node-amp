@@ -16,6 +16,7 @@ const publicPath = '/';
 // The production configuration is different and lives in a separate file.
 module.exports = {
   devtool: 'cheap-module-source-map',
+  target: 'electron-renderer',
   entry: [
     require.resolve('react-dev-utils/webpackHotDevClient'),
     // Finally, this is your app's code:
@@ -117,13 +118,6 @@ module.exports = {
     new WatchMissingNodeModulesPlugin(paths.appNodeModules),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
   ],
-  node: {
-    dgram: 'empty',
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    child_process: 'empty'
-  },
   performance: {
     hints: false
   }
