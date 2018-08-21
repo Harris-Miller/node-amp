@@ -15,23 +15,27 @@ export default class Player extends Component {
   constructor(props) {
     super(props);
 
-    const path = props.player.get('path');
+    const path = props.player.get('path') || '';
 
     this.state = {};
 
     if (path !== '') {
       const tags = this.readTags(path);
       if (tags) {
+        console.log(tags);
         this.state.tags = tags;
       }
     }
   }
 
   componentDidUpdate(prevProps) {
+    console.log('componentDidUpdate');
     const path = this.props.player.get('path');
 
     if (prevProps.player.get('path') !== path) {
-      this.setState({ tags: this.readTags(path) });
+      const tags = this.readTags(path);
+      console.log(tags);
+      this.setState({ tags });
     }
   }
 
@@ -52,11 +56,17 @@ export default class Player extends Component {
       const trackInfo = tags
         ? <span>{tags.artist} - {tags.title}</span>
         : <span>{player.get('path')}</span>;
+
+      const albumImage = tags && tags.image && tags.image.imageBuffer
+        ? `data:image/png;base64,${tags.image.imageBuffer.toString('base64')}`
+        : null;
+
       return (
         <div>
           <div>Loaded Song: {trackInfo}</div>
           <button>Play</button>
           <button>Pause</button>
+          {albumImage && <img src={albumImage} alt="Album Cover" />}
         </div>
       );
     }
