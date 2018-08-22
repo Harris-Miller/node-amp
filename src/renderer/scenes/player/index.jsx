@@ -2,11 +2,9 @@
 import React, { Component } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
-import id3Tag from 'node-id3';
+import stateToProps from '../../utils/state-to-props';
 
-const stateToProps = ({ player }) => ({ player });
-
-@connect(stateToProps)
+@connect(stateToProps('player'))
 export default class Player extends Component {
   static propTypes = {
     player: ImmutablePropTypes.map.isRequired
@@ -15,57 +13,55 @@ export default class Player extends Component {
   constructor(props) {
     super(props);
 
-    const path = props.player.get('path') || '';
-
-    this.state = {};
-
-    if (path !== '') {
-      const tags = this.readTags(path);
-      if (tags) {
-        console.log(tags);
-        this.state.tags = tags;
-      }
-    }
+    this.state = {
+      audioContext: new window.AudioContext(),
+      audio: null
+    };
   }
 
   componentDidUpdate(prevProps) {
-    console.log('componentDidUpdate');
     const path = this.props.player.get('path');
 
     if (prevProps.player.get('path') !== path) {
-      const tags = this.readTags(path);
-      console.log(tags);
-      this.setState({ tags });
+      const audio = new window.Audio(path);
+
+      audio.addEventListener('loadstart', () => {
+        this.sourceNode = this.state.audioContext.createMediaElementSource(audio);
+      });
+
+      this.setState({ audio });
     }
   }
 
-  readTags = path => {
-    try {
-      return id3Tag.read(path);
-    } catch (err) {
-      console.log(err);
-      return null;
-    }
+  play = () => {
+    this.state.audio.play().catch(err => { throw err; });
+  };
+
+  pause = () => {
+    this.state.audio.pause().catch(err => { throw err; });
   };
 
   render() {
     const { player } = this.props;
-    const { tags } = this.state;
+    const filepath = player.get('filepath');
+    const tags = player.get('tags');
 
-    if (player.has('path')) {
+    console.log(tags);
+
+    if (filepath) {
       const trackInfo = tags
         ? <span>{tags.artist} - {tags.title}</span>
         : <span>{player.get('path')}</span>;
 
-      const albumImage = tags && tags.image && tags.image.imageBuffer
-        ? `data:image/png;base64,${tags.image.imageBuffer.toString('base64')}`
+      const albumImage = tags && tags.image && tags.image.data
+        ? `data:image/png;base64,${tags.image.data.toString('base64')}`
         : null;
 
       return (
         <div>
           <div>Loaded Song: {trackInfo}</div>
-          <button>Play</button>
-          <button>Pause</button>
+          <button onClick={this.play}>Play</button>
+          <button onClick={this.pause}>Pause</button>
           {albumImage && <img src={albumImage} alt="Album Cover" />}
         </div>
       );

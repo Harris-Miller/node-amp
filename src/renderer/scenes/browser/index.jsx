@@ -1,36 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 import { ipcRenderer } from 'electron';
 import { setCurrentTrack } from '../../actions/player';
+import stateToProps from '../../utils/state-to-props';
 
-const stateToProps = ({ player }) => ({ player });
-
-@connect(stateToProps)
+@connect(stateToProps('player', 'browser'))
 export default class Browser extends Component {
   static propTypes = {
+    // player: ImmutablePropTypes.map.isRequired,
+    browser: ImmutablePropTypes.map.isRequired,
     dispatch: PropTypes.func.isRequired
   };
 
-  state = {
-    paths: []
-  };
-
-  componentDidMount() {
-    ipcRenderer.on('selected-directory', this.onSelectedDirectory);
-  }
-
-  componentWillUnmount() {
-    ipcRenderer.off('selected-directory', this.onSelectedDirectory);
-  }
-
-  onSelectedDirectory = (event, paths) => {
-    console.log(paths);
-    this.setState({ paths });
-  };
-
-  setCurrentTrack = path => {
-    this.props.dispatch(setCurrentTrack(path));
+  setCurrentTrack = file => {
+    this.props.dispatch(setCurrentTrack(file));
   };
 
   chooseFolder = () => {
@@ -38,12 +23,18 @@ export default class Browser extends Component {
   };
 
   render() {
-    const { paths } = this.state;
+    const { browser } = this.props;
+    const files = browser.get('files');
+
     return (
       <div>
-        <button onClick={this.chooseFolder}>Watch folder</button>
         <div>
-          {paths.map(path => <div key={path}><button onClick={() => this.setCurrentTrack(path)}>{path}</button></div>)}
+          {files.map(file => {
+            const path = file.get('filepath');
+            return (
+              <div key={path}><button onClick={() => this.setCurrentTrack(file)}>{path}</button></div>
+            );
+          })}
         </div>
       </div>
     );

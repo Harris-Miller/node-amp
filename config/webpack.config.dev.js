@@ -111,7 +111,8 @@ module.exports = {
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      'process.env.HOME': JSON.stringify(process.env.HOME)
     }),
     new webpack.HotModuleReplacementPlugin(),
     new CaseSensitivePathsPlugin(),
