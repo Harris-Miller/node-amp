@@ -9,7 +9,7 @@
   "scripts": {
     "lint": "eslint .",
     "start": "electron ./src/main.js",
-    "start:debug": "electron ./src/main.js --debug",
+    "start:debug": "electromon ./src/main.js --debug",
     "prepack": "check-for-leaks",
     "prepush": "check-for-leaks",
     "webpack": "node scripts/start.js"
@@ -54,6 +54,7 @@
     "cross-env": "^5.2.0",
     "css-loader": "0.28.11",
     "dirty-chai": "^2.0.1",
+    "electromon": "^1.0.10",
     "electron-builder": "^20.28.1",
     "electron-devtools-installer": "^2.2.4",
     "electron-rebuild": "^1.8.2",
