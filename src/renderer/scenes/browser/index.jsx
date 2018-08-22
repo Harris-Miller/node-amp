@@ -8,8 +8,8 @@ import stateToProps from '../../utils/state-to-props';
 import classes from './index.css';
 
 function sortFileByTitle(a, b) {
-  const aTitle = a.get('tags').title;
-  const bTitle = b.get('tags').title;
+  const aTitle = a.tags.title;
+  const bTitle = b.tags.title;
 
   if (aTitle < bTitle) { return -1; }
   if (aTitle > bTitle) { return 1; }
@@ -19,7 +19,6 @@ function sortFileByTitle(a, b) {
 @connect(stateToProps('player', 'browser'))
 export default class Browser extends Component {
   static propTypes = {
-    // player: ImmutablePropTypes.map.isRequired,
     browser: ImmutablePropTypes.map.isRequired,
     dispatch: PropTypes.func.isRequired
   };
@@ -44,10 +43,10 @@ export default class Browser extends Component {
     const { browser } = this.props;
     const files = browser.get('files');
 
-    const artists = files.map(file => (file.get('tags').artist)).toSet().sort();
+    const artists = files.map(file => (file.tags.artist)).toSet().sort();
 
     const artistTracks = this.state.artist
-      ? files.filter(file => file.get('tags').artist === this.state.artist).sort(sortFileByTitle)
+      ? files.filter(file => file.tags.artist === this.state.artist).sort(sortFileByTitle)
       : null;
 
     return (
@@ -56,7 +55,7 @@ export default class Browser extends Component {
           {artists.map(artist => <div key={artist}><button onClick={() => this.setArtist(artist)}>{artist}</button></div>)}
         </div>
         <div className={classes.half}>
-          {artistTracks && artistTracks.map(track => <div key={track.get('tags').title}><button onClick={() => this.setCurrentTrack(track)}>{track.get('tags').title}</button></div>)}
+          {artistTracks && artistTracks.map(track => <div key={track.tags.title}><button onClick={() => this.setCurrentTrack(track)}>{track.tags.title}</button></div>)}
         </div>
       </div>
     );

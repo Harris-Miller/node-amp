@@ -21,10 +21,10 @@ export default class Player extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const path = this.props.player.get('path');
+    const { filepath } = this.props.player;
 
-    if (prevProps.player.get('path') !== path) {
-      const audio = new window.Audio(path);
+    if (prevProps.player.filepath !== filepath) {
+      const audio = new window.Audio(filepath);
 
       audio.addEventListener('loadstart', () => {
         this.sourceNode = this.state.audioContext.createMediaElementSource(audio);
@@ -43,16 +43,14 @@ export default class Player extends Component {
   };
 
   render() {
-    const { player } = this.props;
-    const filepath = player.get('filepath');
-    const tags = player.get('tags');
+    const { filepath, tags } = this.props.player;
 
     console.log(tags);
 
     if (filepath) {
       const trackInfo = tags
         ? <span>{tags.artist} - {tags.title}</span>
-        : <span>{player.get('path')}</span>;
+        : <span>{filepath}</span>;
 
       const albumImage = tags && tags.image && tags.image.data
         ? `data:image/png;base64,${tags.image.data.toString('base64')}`

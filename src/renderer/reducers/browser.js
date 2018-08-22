@@ -8,7 +8,7 @@ const defaultState = immutable.fromJS({
 export default (state = defaultState, action = {}) => {
   switch (action.type) {
     case SET_FILES:
-      return state.set('files', new immutable.List(action.data.map(data => new immutable.Map(data))));
+      return state.set('files', new immutable.List(action.data));
     default:
       return state;
   }
