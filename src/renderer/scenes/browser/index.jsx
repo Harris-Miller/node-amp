@@ -5,6 +5,16 @@ import { connect } from 'react-redux';
 import { ipcRenderer } from 'electron';
 import { setCurrentTrack } from '../../actions/player';
 import stateToProps from '../../utils/state-to-props';
+import classes from './index.css';
+
+function sortFileByTitle(a, b) {
+  const aTitle = a.get('tags').title;
+  const bTitle = b.get('tags').title;
+
+  if (aTitle < bTitle) { return -1; }
+  if (aTitle > bTitle) { return 1; }
+  if (aTitle === bTitle) { return 0; }
+}
 
 @connect(stateToProps('player', 'browser'))
 export default class Browser extends Component {
@@ -14,8 +24,16 @@ export default class Browser extends Component {
     dispatch: PropTypes.func.isRequired
   };
 
+  state = {
+    artist: null
+  };
+
   setCurrentTrack = file => {
     this.props.dispatch(setCurrentTrack(file));
+  };
+
+  setArtist = artist => {
+    this.setState({ artist });
   };
 
   chooseFolder = () => {
@@ -26,15 +44,19 @@ export default class Browser extends Component {
     const { browser } = this.props;
     const files = browser.get('files');
 
+    const artists = files.map(file => (file.get('tags').artist)).toSet().sort();
+
+    const artistTracks = this.state.artist
+      ? files.filter(file => file.get('tags').artist === this.state.artist).sort(sortFileByTitle)
+      : null;
+
     return (
-      <div>
-        <div>
-          {files.map(file => {
-            const path = file.get('filepath');
-            return (
-              <div key={path}><button onClick={() => this.setCurrentTrack(file)}>{path}</button></div>
-            );
-          })}
+      <div className={classes.container}>
+        <div className={classes.half}>
+          {artists.map(artist => <div key={artist}><button onClick={() => this.setArtist(artist)}>{artist}</button></div>)}
+        </div>
+        <div className={classes.half}>
+          {artistTracks && artistTracks.map(track => <div key={track.get('tags').title}><button onClick={() => this.setCurrentTrack(track)}>{track.get('tags').title}</button></div>)}
         </div>
       </div>
     );

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 import stateToProps from '../../utils/state-to-props';
+import classes from './index.css';
 
 @connect(stateToProps('player'))
 export default class Player extends Component {
@@ -59,10 +60,10 @@ export default class Player extends Component {
 
       return (
         <div>
-          <div>Loaded Song: {trackInfo}</div>
+          <span>Loaded Song: {trackInfo}</span>
           <button onClick={this.play}>Play</button>
           <button onClick={this.pause}>Pause</button>
-          {albumImage && <img src={albumImage} alt="Album Cover" />}
+          {albumImage && <img className={classes.albumCover} src={albumImage} alt="Album Cover" />}
         </div>
       );
     }
