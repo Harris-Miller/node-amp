@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/media-has-caption, react/no-did-update-set-state */
 import React, { Component } from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import stateToProps from '../../utils/state-to-props';
 import classes from './index.css';
@@ -8,7 +8,7 @@ import classes from './index.css';
 @connect(stateToProps('player'))
 export default class Player extends Component {
   static propTypes = {
-    player: ImmutablePropTypes.map.isRequired
+    player: PropTypes.shape().isRequired
   };
 
   constructor(props) {
@@ -44,8 +44,6 @@ export default class Player extends Component {
 
   render() {
     const { filepath, tags } = this.props.player;
-
-    console.log(tags);
 
     if (filepath) {
       const trackInfo = tags
