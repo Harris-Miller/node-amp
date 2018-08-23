@@ -1,6 +1,6 @@
 {
   "root": true,
-  "extends": "eslint-config-harris/react-recommended",
+  "extends": ["eslint-config-harris/react-recommended", "eslint-config-harris/filenames"],
   "rules": {
     "no-console": 0
   }

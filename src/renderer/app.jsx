@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { resolve } from 'path';
+import { homedir } from 'os';
 import store from './store';
 import Player from './components/player';
 import Browser from './components/browser';
@@ -9,8 +10,9 @@ import './global-events';
 
 export default class App extends Component {
   componentDidMount() {
-    // TODO: this should be the default path to use, should be customizable
-    fetchFilesFromPath(resolve(process.env.HOME, 'Music'));
+    // TODO: move this to be settable
+    const homeDir = homedir();
+    fetchFilesFromPath(resolve(homeDir, 'Music'));
   }
 
   render() {
