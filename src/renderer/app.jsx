@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { resolve } from 'path';
 import store from './store';
-import Player from './scenes/player';
-import Browser from './scenes/browser';
+import Player from './components/player';
+import Browser from './components/browser';
 import { fetchFilesFromPath } from './actions/browser';
 import './global-events';
 
