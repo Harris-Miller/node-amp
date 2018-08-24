@@ -3,6 +3,14 @@ export default class Player {
     this.track = new Audio();
   }
 
+  on(...args) {
+    this.track.on(...args);
+  }
+
+  off(...args) {
+    this.track.off(...args);
+  }
+
   get duration() {
     return this.track.duration;
   }
@@ -53,7 +61,7 @@ export default class Player {
     return this.track.currentTime;
   }
 
-  goToTime(time) {
+  seek(time) {
     this.track.currentTime = time;
   }
 
