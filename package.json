@@ -9,6 +9,7 @@
   "scripts": {
     "lint": "eslint .",
     "start": "electron ./src/main.js",
+    "start:debug": "electron ./src/main.js --debug",
     "start:watch": "electromon ./src/main.js --debug",
     "prepack": "check-for-leaks",
     "prepush": "check-for-leaks",

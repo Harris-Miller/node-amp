@@ -2,8 +2,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { ipcRenderer } from 'electron';
 import stateToProps from '../../utils/state-to-props';
 import classes from './index.css';
+
+const audioContext = new AudioContext();
+const offlineContext = new OfflineAudioContext(2, 44100 * 40, 44100);
 
 @connect(stateToProps('player'))
 export default class Player extends Component {
@@ -14,32 +18,29 @@ export default class Player extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      audioContext: new window.AudioContext(),
-      audio: null
-    };
+    this.audio = new Audio();
   }
 
   componentDidUpdate(prevProps) {
     const { filepath } = this.props.player;
 
     if (prevProps.player.filepath !== filepath) {
-      const audio = new window.Audio(filepath);
+      // ipcRenderer.send('open-file', filepath);
 
-      audio.addEventListener('loadstart', () => {
-        this.sourceNode = this.state.audioContext.createMediaElementSource(audio);
-      });
-
-      this.setState({ audio });
+      this.audio.src = `file://${filepath}`;
     }
   }
 
   play = () => {
-    this.state.audio.play().catch(err => { throw err; });
+    if (this.audio) {
+      this.audio.play().catch(err => { throw err; });
+    }
   };
 
   pause = () => {
-    this.state.audio.pause().catch(err => { throw err; });
+    if (this.audio) {
+      this.audio.pause();
+    }
   };
 
   render() {

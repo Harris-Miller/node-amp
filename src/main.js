@@ -57,7 +57,10 @@ function initialize() {
       width: 1080,
       minWidth: 680,
       height: 840,
-      title: app.getName()
+      title: app.getName(),
+      webPreferences: {
+        webSecurity: false
+      }
     };
 
     if (process.platform === 'linux') {
