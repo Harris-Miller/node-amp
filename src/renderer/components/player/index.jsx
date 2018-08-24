@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import stateToProps from '../../utils/state-to-props';
 import classes from './index.css';
+import Audio from '../../audio';
 
 @connect(stateToProps('player'))
 export default class Player extends Component {
@@ -20,20 +21,20 @@ export default class Player extends Component {
     const { filepath } = this.props.player;
 
     if (prevProps.player.filepath !== filepath) {
-      this.audio.src = `file://${filepath}`;
+      this.audio.load(`file://${filepath}`);
     }
   }
 
   play = () => {
-    if (this.audio) {
-      this.audio.play().catch(err => { throw err; });
-    }
+    this.audio.play().catch(err => { throw err; });
   };
 
   pause = () => {
-    if (this.audio) {
-      this.audio.pause();
-    }
+    this.audio.pause();
+  };
+
+  stop = () => {
+    this.audio.stop();
   };
 
   render() {
@@ -53,6 +54,7 @@ export default class Player extends Component {
           <span>Loaded Song: {trackInfo}</span>
           <button onClick={this.play}>Play</button>
           <button onClick={this.pause}>Pause</button>
+          <button onClick={this.stop}>Stop</button>
           {albumImage && <img className={classes.albumCover} src={albumImage} alt="Album Cover" />}
         </div>
       );
