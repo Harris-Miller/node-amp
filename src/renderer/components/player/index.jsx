@@ -1,13 +1,8 @@
-/* eslint-disable jsx-a11y/media-has-caption, react/no-did-update-set-state */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ipcRenderer } from 'electron';
 import stateToProps from '../../utils/state-to-props';
 import classes from './index.css';
-
-const audioContext = new AudioContext();
-const offlineContext = new OfflineAudioContext(2, 44100 * 40, 44100);
 
 @connect(stateToProps('player'))
 export default class Player extends Component {
@@ -25,8 +20,6 @@ export default class Player extends Component {
     const { filepath } = this.props.player;
 
     if (prevProps.player.filepath !== filepath) {
-      // ipcRenderer.send('open-file', filepath);
-
       this.audio.src = `file://${filepath}`;
     }
   }
