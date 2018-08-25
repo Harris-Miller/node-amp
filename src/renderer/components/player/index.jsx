@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import Pause from '@material-ui/icons/Pause';
 import Stop from '@material-ui/icons/Stop';
+import VolumeUp from '@material-ui/icons/VolumeUp';
+import VolumeMute from '@material-ui/icons/VolumeMute';
 import stateToProps from '../../utils/state-to-props';
 import style from './index.css';
 import Track from '../../track';
@@ -30,9 +32,13 @@ export default class Player extends Component {
     }
   }
 
+  get volume() {
+    return this.track.muted ? 0 : this.track.volume;
+  }
+
   setVolume = ({ target }) => {
     this.track.volume = target.value;
-    this.forceUpdate(); // because of externally controlled value of this.track.volume
+    this.forceUpdate(); // because of externally controlled value
   };
 
   play = () => {
@@ -45,6 +51,11 @@ export default class Player extends Component {
 
   stop = () => {
     this.track.stop();
+  };
+
+  toggleMute = () => {
+    this.track.isMuted ? this.track.unmute() : this.track.mute();
+    this.forceUpdate(); // because of externally controlled value
   };
 
   render() {
@@ -62,18 +73,24 @@ export default class Player extends Component {
       ? `data:image/png;base64,${tags.image.data.toString('base64')}`
       : null;
 
+    const volumeControl = this.track.isMuted
+      ? <VolumeMute onClick={this.toggleMute} />
+      : <VolumeUp onClick={this.toggleMute} />;
+
     return (
       <div className={style.container}>
         <PlayArrow onClick={this.play} />
         <Pause onClick={this.pause} />
         <Stop onClick={this.stop} />
+        {volumeControl}
         <input
           type="range"
           min={0}
           max={1}
           step={0.05}
           onChange={this.setVolume}
-          value={this.track.volume}
+          value={this.volume}
+          disabled={this.track.isMuted}
         />
         <span>{trackInfo}</span>
         {albumImage && <img className={style.albumCover} src={albumImage} alt="Album Cover" />}
