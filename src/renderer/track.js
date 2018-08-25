@@ -1,4 +1,4 @@
-export default class Player {
+export default class Track {
   constructor() {
     this.track = new Audio();
   }

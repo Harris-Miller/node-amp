@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import PlayArrow from '@material-ui/icons/PlayArrow';
+import Pause from '@material-ui/icons/Pause';
+import Stop from '@material-ui/icons/Stop';
 import stateToProps from '../../utils/state-to-props';
-import classes from './index.css';
-import Audio from '../../audio';
+import style from './index.css';
+import Track from '../../track';
+import AudioController from '../../audio-controller';
 
 @connect(stateToProps('player'))
 export default class Player extends Component {
@@ -14,69 +18,65 @@ export default class Player extends Component {
   constructor(props) {
     super(props);
 
-    this.audio = new Audio();
+    this.track = new Track();
+    this.audioController = new AudioController(this.track.track);
   }
 
   componentDidUpdate(prevProps) {
     const { filepath } = this.props.player;
 
     if (prevProps.player.filepath !== filepath) {
-      this.audio.load(`file://${filepath}`);
-      this.play();
+      this.track.load(`file://${filepath}`);
     }
   }
 
   setVolume = ({ target }) => {
-    this.audio.volume = target.value;
-    this.forceUpdate(); // because of externally controlled value of this.audio.volume
+    this.track.volume = target.value;
+    this.forceUpdate(); // because of externally controlled value of this.track.volume
   };
 
   play = () => {
-    this.audio.play().catch(err => { throw err; });
+    this.track.play().catch(err => { throw err; });
   };
 
   pause = () => {
-    this.audio.pause();
+    this.track.pause();
   };
 
   stop = () => {
-    this.audio.stop();
+    this.track.stop();
   };
 
   render() {
     const { filepath, tags } = this.props.player;
 
+    let trackInfo = null;
+
     if (filepath) {
-      const trackInfo = tags
+      trackInfo = tags
         ? <span>{tags.artist} - {tags.title}</span>
         : <span>{filepath}</span>;
-
-      const albumImage = tags && tags.image && tags.image.data
-        ? `data:image/png;base64,${tags.image.data.toString('base64')}`
-        : null;
-
-      return (
-        <div>
-          <span>Loaded Song: {trackInfo}</span>
-          <button onClick={this.play}>Play</button>
-          <button onClick={this.pause}>Pause</button>
-          <button onClick={this.stop}>Stop</button>
-          <input
-            type="range"
-            min={0}
-            max={1}
-            step={0.05}
-            onChange={this.setVolume}
-            value={this.audio.volume}
-          />
-          {albumImage && <img className={classes.albumCover} src={albumImage} alt="Album Cover" />}
-        </div>
-      );
     }
 
+    const albumImage = tags && tags.image && tags.image.data
+      ? `data:image/png;base64,${tags.image.data.toString('base64')}`
+      : null;
+
     return (
-      <div>
-        No Song selected
+      <div className={style.container}>
+        <PlayArrow onClick={this.play} />
+        <Pause onClick={this.pause} />
+        <Stop onClick={this.stop} />
+        <input
+          type="range"
+          min={0}
+          max={1}
+          step={0.05}
+          onChange={this.setVolume}
+          value={this.track.volume}
+        />
+        <span>{trackInfo}</span>
+        {albumImage && <img className={style.albumCover} src={albumImage} alt="Album Cover" />}
       </div>
     );
   }
