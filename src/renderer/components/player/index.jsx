@@ -6,6 +6,8 @@ import Pause from '@material-ui/icons/Pause';
 import Stop from '@material-ui/icons/Stop';
 import VolumeUp from '@material-ui/icons/VolumeUp';
 import VolumeMute from '@material-ui/icons/VolumeMute';
+import SkipPrevious from '@material-ui/icons/SkipPrevious';
+import SkipNext from '@material-ui/icons/SkipNext';
 import stateToProps from '../../utils/state-to-props';
 import style from './index.css';
 import Track from '../../track';
@@ -79,9 +81,11 @@ export default class Player extends Component {
 
     return (
       <div className={style.container}>
+        <SkipPrevious />
         <PlayArrow onClick={this.play} />
         <Pause onClick={this.pause} />
         <Stop onClick={this.stop} />
+        <SkipNext />
         {volumeControl}
         <input
           type="range"
