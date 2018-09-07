@@ -17,7 +17,7 @@ export default class Gain extends Component {
     this.gain.connect(audioContext.destination);
 
     this.state = {
-      value: 1,
+      value: 0.5,
       isMuted: false
     };
 

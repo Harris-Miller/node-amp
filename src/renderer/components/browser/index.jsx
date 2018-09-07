@@ -8,8 +8,8 @@ import stateToProps from '../../utils/state-to-props';
 import classes from './index.css';
 
 function sortFileByTitle(a, b) {
-  const aTitle = a.tags.title;
-  const bTitle = b.tags.title;
+  const aTitle = a.tags.title || a.filepath;
+  const bTitle = b.tags.title || a.filepath;
 
   if (aTitle < bTitle) { return -1; }
   if (aTitle > bTitle) { return 1; }
@@ -43,10 +43,10 @@ export default class Browser extends Component {
     const { browser } = this.props;
     const files = browser.get('files');
 
-    const artists = files.map(file => file.tags.artist || file.filepath).toSet().sort();
+    const artists = files.map(file => file.tags.artist || '{no artist}').toSet().sort();
 
     const artistTracks = this.state.artist
-      ? files.filter(file => (file.tags.artist === this.state.artist) || (file.filepath === this.state.artist)).sort(sortFileByTitle)
+      ? files.filter(file => (this.state.artist === file.tags.artist) || ((this.state.artist === '{no artist}') && !file.tags.artist)).sort(sortFileByTitle)
       : null;
 
     return (

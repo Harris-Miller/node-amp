@@ -19,7 +19,11 @@ const AlbumCover = ({ tags }) => {
 };
 
 AlbumCover.propTypes = {
-  tags: PropTypes.shape().isRequired
+  tags: PropTypes.shape()
+};
+
+AlbumCover.defaultProps = {
+  tags: null
 };
 
 export default AlbumCover;

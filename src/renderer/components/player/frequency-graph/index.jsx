@@ -24,7 +24,6 @@ export default class FrequecyGraph extends Component {
     this.analyser.fftSize = 2048;
 
     this.bufferLength = this.analyser.frequencyBinCount;
-    console.log(this.bufferLength);
     this.dataArray = new Uint8Array(this.bufferLength);
     this.analyser.getByteFrequencyData(this.dataArray);
   }
