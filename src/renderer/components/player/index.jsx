@@ -9,9 +9,12 @@ import VolumeMute from '@material-ui/icons/VolumeMute';
 import SkipPrevious from '@material-ui/icons/SkipPrevious';
 import SkipNext from '@material-ui/icons/SkipNext';
 import stateToProps from '../../utils/state-to-props';
-import style from './index.css';
+import styles from './styles.css';
 import Track from '../../track';
 import AudioController from '../../audio-controller';
+import AlbumCover from './album-cover';
+import Oscilloscope from './oscilloscope';
+import FrequecyGraph from './frequency-graph';
 
 @connect(stateToProps('player'))
 export default class Player extends Component {
@@ -71,16 +74,13 @@ export default class Player extends Component {
         : <span>{filepath}</span>;
     }
 
-    const albumImage = tags && tags.image && tags.image.data
-      ? `data:image/png;base64,${tags.image.data.toString('base64')}`
-      : null;
-
     const volumeControl = this.track.isMuted
       ? <VolumeMute onClick={this.toggleMute} />
       : <VolumeUp onClick={this.toggleMute} />;
 
     return (
-      <div className={style.container}>
+      <div className={styles.container}>
+        <AlbumCover tags={tags} />
         <SkipPrevious />
         <PlayArrow onClick={this.play} />
         <Pause onClick={this.pause} />
@@ -97,7 +97,8 @@ export default class Player extends Component {
           disabled={this.track.isMuted}
         />
         <span>{trackInfo}</span>
-        {albumImage && <img className={style.albumCover} src={albumImage} alt="Album Cover" />}
+        <Oscilloscope controller={this.audioController} />
+        <FrequecyGraph controller={this.audioController} />
       </div>
     );
   }

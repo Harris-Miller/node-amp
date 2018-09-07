@@ -1,4 +1,4 @@
-const audioContext = new AudioContext();
+import { audioContext } from './audio-context';
 
 export default class AudioController {
   constructor(track) {
