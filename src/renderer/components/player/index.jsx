@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import Pause from '@material-ui/icons/Pause';
 import Stop from '@material-ui/icons/Stop';
-import VolumeUp from '@material-ui/icons/VolumeUp';
-import VolumeMute from '@material-ui/icons/VolumeMute';
 import SkipPrevious from '@material-ui/icons/SkipPrevious';
 import SkipNext from '@material-ui/icons/SkipNext';
 import stateToProps from '../../utils/state-to-props';
@@ -13,6 +11,7 @@ import styles from './styles.css';
 import Track from '../../track';
 import AudioController from '../../audio-controller';
 import AlbumCover from './album-cover';
+import Gain from './gain';
 import Oscilloscope from './oscilloscope';
 import FrequecyGraph from './frequency-graph';
 
@@ -58,11 +57,6 @@ export default class Player extends Component {
     this.track.stop();
   };
 
-  toggleMute = () => {
-    this.track.isMuted ? this.track.unmute() : this.track.mute();
-    this.forceUpdate(); // because of externally controlled value
-  };
-
   render() {
     const { filepath, tags } = this.props.player;
 
@@ -74,10 +68,6 @@ export default class Player extends Component {
         : <span>{filepath}</span>;
     }
 
-    const volumeControl = this.track.isMuted
-      ? <VolumeMute onClick={this.toggleMute} />
-      : <VolumeUp onClick={this.toggleMute} />;
-
     return (
       <div className={styles.container}>
         <AlbumCover tags={tags} />
@@ -86,16 +76,7 @@ export default class Player extends Component {
         <Pause onClick={this.pause} />
         <Stop onClick={this.stop} />
         <SkipNext />
-        {volumeControl}
-        <input
-          type="range"
-          min={0}
-          max={1}
-          step={0.05}
-          onChange={this.setVolume}
-          value={this.volume}
-          disabled={this.track.isMuted}
-        />
+        <Gain controller={this.audioController} />
         <span>{trackInfo}</span>
         <Oscilloscope controller={this.audioController} />
         <FrequecyGraph controller={this.audioController} />

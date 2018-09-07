@@ -30,7 +30,7 @@ export default class FrequecyGraph extends Component {
   }
 
   componentDidMount() {
-    this.canvas.width = this.bufferLength / 4;
+    this.canvas.width = (this.bufferLength / 4) + (this.bufferLength / 8);
     this.canvas.height = 100;
 
     this.canvasCtx = this.canvas.getContext('2d');
@@ -55,7 +55,7 @@ export default class FrequecyGraph extends Component {
       this.canvasCtx.fillStyle = `rgb(${barHeight + 200},50,50)`;
       this.canvasCtx.fillRect(x, this.HEIGHT - barHeight, barWidth, barHeight);
 
-      x += barWidth + 1;
+      x += barWidth + 0.5;
     }
   };
 

@@ -43,10 +43,10 @@ export default class Browser extends Component {
     const { browser } = this.props;
     const files = browser.get('files');
 
-    const artists = files.map(file => (file.tags.artist)).toSet().sort();
+    const artists = files.map(file => file.tags.artist || file.filepath).toSet().sort();
 
     const artistTracks = this.state.artist
-      ? files.filter(file => file.tags.artist === this.state.artist).sort(sortFileByTitle)
+      ? files.filter(file => (file.tags.artist === this.state.artist) || (file.filepath === this.state.artist)).sort(sortFileByTitle)
       : null;
 
     return (
@@ -55,7 +55,7 @@ export default class Browser extends Component {
           {artists.map(artist => <div key={artist}><button onClick={() => this.setArtist(artist)}>{artist}</button></div>)}
         </div>
         <div className={classes.half}>
-          {artistTracks && artistTracks.map(track => <div key={track.tags.title}><button onClick={() => this.setCurrentTrack(track)}>{track.tags.title}</button></div>)}
+          {artistTracks && artistTracks.map(track => <div key={track.tags.title || track.filepath}><button onClick={() => this.setCurrentTrack(track)}>{track.tags.title || track.filepath}</button></div>)}
         </div>
       </div>
     );
