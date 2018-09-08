@@ -1,6 +1,36 @@
+import { audioContext } from './audio-context';
+
 export default class Track {
   constructor() {
     this.track = new Audio();
+    this.source = audioContext.createMediaElementSource(this.track);
+    this.gainControl = audioContext.createGain();
+
+    this.eqFrequencies = [60, 200, 1000, 3000, 5000, 10000];
+
+    this.filters = this.eqFrequencies.map(freq => {
+      const eq = audioContext.createBiquadFilter();
+      eq.frequency.value = freq;
+      eq.Q.value = 100;
+      eq.type = 'peaking';
+      return eq;
+    });
+
+    this.filters.forEach((filter, i, filters) => {
+      if (i === 0) {
+        this.source.connect(filters[i]);
+      } else {
+        filters[i - 1].connect(filters[i]);
+      }
+    });
+
+    this.filters[5].connect(this.gainControl);
+
+    this.gainControl.connect(audioContext.destination);
+  }
+
+  get gain() {
+    return this.gainControl.gain;
   }
 
   on(...args) {

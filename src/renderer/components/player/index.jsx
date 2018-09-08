@@ -10,7 +10,6 @@ import SkipNext from '@material-ui/icons/SkipNext';
 import stateToProps from '../../utils/state-to-props';
 import styles from './styles.css';
 import Track from '../../track';
-import AudioController from '../../audio-controller';
 import AlbumCover from './album-cover';
 import Gain from './gain';
 // import Oscilloscope from './oscilloscope';
@@ -27,7 +26,6 @@ export default class Player extends Component {
     super(props);
 
     this.track = new Track();
-    this.audioController = new AudioController(this.track.track);
 
     this.state = {
       currentTime: 0
@@ -90,11 +88,11 @@ export default class Player extends Component {
         <Pause onClick={this.pause} />
         <Stop onClick={this.stop} />
         <SkipNext />
-        <Gain controller={this.audioController} />
+        <Gain track={this.track} />
         <span>{trackInfo}</span>
         <Seek track={this.track} />
-        {/* <Oscilloscope controller={this.audioController} /> */}
-        <FrequecyGraph controller={this.audioController} />
+        {/* <Oscilloscope track={this.track} /> */}
+        <FrequecyGraph track={this.track} />
       </div>
     );
   }

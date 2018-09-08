@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import VolumeUp from '@material-ui/icons/VolumeUp';
-import VolumeMute from '@material-ui/icons/VolumeMute';
-import { audioContext } from '../../../audio-context';
 
 export default class Gain extends Component {
   static propTypes = {

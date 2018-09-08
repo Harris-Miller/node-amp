@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Track from '../../../track';
 import { audioContext } from '../../../audio-context';
 
 export default class Oscilloscope extends Component {
   static propTypes = {
-    controller: PropTypes.shape().isRequired
+    track: PropTypes.instanceOf(Track).isRequired
   };
 
   constructor(props) {
     super(props);
 
     this.analyser = audioContext.createAnalyser();
-    this.props.controller.source.connect(this.analyser);
+    this.props.track.source.connect(this.analyser);
 
     this.analyser.fftSize = 2048;
 

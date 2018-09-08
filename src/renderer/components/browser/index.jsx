@@ -43,10 +43,10 @@ export default class Browser extends Component {
     const { browser } = this.props;
     const files = browser.get('files');
 
-    const artists = files.map(file => file.tags.artist || '{no artist}').toSet().sort();
+    const artists = files.map(file => file.tags.artist || ' { no artist } ').toSet().sort();
 
     const artistTracks = this.state.artist
-      ? files.filter(file => (this.state.artist === file.tags.artist) || ((this.state.artist === '{no artist}') && !file.tags.artist)).sort(sortFileByTitle)
+      ? files.filter(file => (this.state.artist === file.tags.artist) || ((this.state.artist === ' { no artist } ') && !file.tags.artist)).sort(sortFileByTitle)
       : null;
 
     return (
