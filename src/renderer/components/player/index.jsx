@@ -15,6 +15,7 @@ import Gain from './gain';
 // import Oscilloscope from './oscilloscope';
 import FrequecyGraph from './frequency-graph';
 import Seek from './seek';
+import EQ from './eq';
 
 @connect(stateToProps('player'))
 export default class Player extends Component {
@@ -83,14 +84,21 @@ export default class Player extends Component {
       <div className={styles.container}>
         <span>{time.format('mm:ss')} - {duration.format('mm:ss')}</span>
         <AlbumCover tags={tags} />
-        <SkipPrevious />
-        <PlayArrow onClick={this.play} />
-        <Pause onClick={this.pause} />
-        <Stop onClick={this.stop} />
-        <SkipNext />
-        <Gain track={this.track} />
+        <div>
+          <div>
+            <SkipPrevious />
+            <PlayArrow onClick={this.play} />
+            <Pause onClick={this.pause} />
+            <Stop onClick={this.stop} />
+            <SkipNext />
+          </div>
+          <div>
+            <Gain track={this.track} />
+          </div>
+        </div>
         <span>{trackInfo}</span>
         <Seek track={this.track} />
+        <EQ track={this.track} />
         {/* <Oscilloscope track={this.track} /> */}
         <FrequecyGraph track={this.track} />
       </div>
