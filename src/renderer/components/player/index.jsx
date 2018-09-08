@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import Pause from '@material-ui/icons/Pause';
 import Stop from '@material-ui/icons/Stop';
@@ -26,6 +27,14 @@ export default class Player extends Component {
 
     this.track = new Track();
     this.audioController = new AudioController(this.track.track);
+
+    this.state = {
+      currentTime: 0
+    };
+
+    this.followTime = setInterval(() => {
+      this.setState({ currentTime: this.track.currentTime });
+    }, 100);
   }
 
   componentDidUpdate(prevProps) {
@@ -68,8 +77,12 @@ export default class Player extends Component {
         : <span>{filepath}</span>;
     }
 
+    const time = moment.unix(this.state.currentTime);
+    const duration = moment.unix(isNaN(this.track.duration) ? 0 : this.track.duration);
+
     return (
       <div className={styles.container}>
+        <span>{time.format('mm:ss')} - {duration.format('mm:ss')}</span>
         <AlbumCover tags={tags} />
         <SkipPrevious />
         <PlayArrow onClick={this.play} />
@@ -78,7 +91,7 @@ export default class Player extends Component {
         <SkipNext />
         <Gain controller={this.audioController} />
         <span>{trackInfo}</span>
-        <Oscilloscope controller={this.audioController} />
+        {/* <Oscilloscope controller={this.audioController} /> */}
         <FrequecyGraph controller={this.audioController} />
       </div>
     );
