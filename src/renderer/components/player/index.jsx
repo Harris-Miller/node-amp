@@ -13,8 +13,9 @@ import Track from '../../track';
 import AudioController from '../../audio-controller';
 import AlbumCover from './album-cover';
 import Gain from './gain';
-import Oscilloscope from './oscilloscope';
+// import Oscilloscope from './oscilloscope';
 import FrequecyGraph from './frequency-graph';
+import Seek from './seek';
 
 @connect(stateToProps('player'))
 export default class Player extends Component {
@@ -91,6 +92,7 @@ export default class Player extends Component {
         <SkipNext />
         <Gain controller={this.audioController} />
         <span>{trackInfo}</span>
+        <Seek track={this.track} />
         {/* <Oscilloscope controller={this.audioController} /> */}
         <FrequecyGraph controller={this.audioController} />
       </div>

@@ -4,11 +4,11 @@ export default class Track {
   }
 
   on(...args) {
-    this.track.on(...args);
+    this.track.addEventListener(...args);
   }
 
   off(...args) {
-    this.track.off(...args);
+    this.track.removeEventListener(...args);
   }
 
   get duration() {
