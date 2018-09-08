@@ -11,12 +11,14 @@ export default class Track {
     this.filters = this.eqFrequencies.map(freq => {
       const eq = audioContext.createBiquadFilter();
       eq.frequency.value = freq;
-      eq.Q.value = 100;
+      eq.Q.value = 1;
       eq.type = 'peaking';
       return eq;
     });
 
     this.filters.forEach((filter, i, filters) => {
+      // filter.gain.value = -15;
+
       if (i === 0) {
         this.source.connect(filters[i]);
       } else {
