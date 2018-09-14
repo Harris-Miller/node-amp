@@ -6,12 +6,26 @@ export default class Track {
     this.source = audioContext.createMediaElementSource(this.track);
     this.gainControl = audioContext.createGain();
 
-    this.eqFrequencies = [60, 200, 1000, 3000, 5000, 10000];
+    // https://www.google.com/search?q=10+band+eq+Q+values&oq=10+band+eq+Q+values&aqs=chrome..69i57j69i60.4390j1j4&sourceid=chrome&ie=UTF-8
+    // first result PDF
+    // [tuple<freq, Q>]
+    this.eqPairs = [
+      [31.5, 4.3],
+      [63, 2.9],
+      [125, 2.4],
+      [250, 1.6],
+      [500, 2.4],
+      [1000, 1.4],
+      [2000, 0.8],
+      [4000, 0.6],
+      [8000, 0.7],
+      [16000, 1]
+    ];
 
-    this.filters = this.eqFrequencies.map(freq => {
+    this.filters = this.eqPairs.map(([freq, q]) => {
       const eq = audioContext.createBiquadFilter();
       eq.frequency.value = freq;
-      eq.Q.value = 1;
+      eq.Q.value = q;
       eq.type = 'peaking';
       return eq;
     });
