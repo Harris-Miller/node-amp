@@ -6,6 +6,7 @@ import { ipcRenderer } from 'electron';
 import { setCurrentTrack } from '../../actions/player';
 import stateToProps from '../../utils/state-to-props';
 import classes from './index.css';
+import { bind } from '../../utils/decorators';
 
 function sortFileByTitle(a, b) {
   const aTitle = a.tags.title || a.filepath;
@@ -27,17 +28,20 @@ export default class Browser extends Component {
     artist: null
   };
 
-  setCurrentTrack = file => {
+  @bind
+  setCurrentTrack(file) {
     this.props.dispatch(setCurrentTrack(file));
-  };
+  }
 
-  setArtist = artist => {
+  @bind
+  setArtist(artist) {
     this.setState({ artist });
-  };
+  }
 
-  chooseFolder = () => {
+  @bind
+  chooseFolder() {
     ipcRenderer.send('open-folder-dialog');
-  };
+  }
 
   render() {
     const { browser } = this.props;

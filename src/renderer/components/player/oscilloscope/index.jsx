@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Track from '../../../track';
 import { audioContext } from '../../../audio-context';
+import { bind } from '../../../utils/decorators';
 
 export default class Oscilloscope extends Component {
   static propTypes = {
@@ -29,7 +30,8 @@ export default class Oscilloscope extends Component {
     this.draw();
   }
 
-  draw = () => {
+  @bind
+  draw() {
     requestAnimationFrame(this.draw);
 
     this.analyser.getByteTimeDomainData(this.dataArray);
@@ -60,7 +62,7 @@ export default class Oscilloscope extends Component {
 
     this.canvasCtx.lineTo(this.canvas.width, this.canvas.height / 2);
     this.canvasCtx.stroke();
-  };
+  }
 
   render() {
     return <canvas ref={node => { this.canvas = node; }} />;

@@ -16,6 +16,7 @@ import Gain from './gain';
 import FrequecyGraph from './frequency-graph';
 import Seek from './seek';
 import EQ from './eq';
+import { bind } from '../../utils/decorators';
 
 @connect(stateToProps('player'))
 export default class Player extends Component {
@@ -49,22 +50,26 @@ export default class Player extends Component {
     return this.track.muted ? 0 : this.track.volume;
   }
 
-  setVolume = ({ target }) => {
+  @bind
+  setVolume({ target }) {
     this.track.volume = target.value;
     this.forceUpdate(); // because of externally controlled value
-  };
+  }
 
-  play = () => {
+  @bind
+  play() {
     this.track.play().catch(err => { throw err; });
-  };
+  }
 
-  pause = () => {
+  @bind
+  pause() {
     this.track.pause();
-  };
+  }
 
-  stop = () => {
+  @bind
+  stop() {
     this.track.stop();
-  };
+  }
 
   render() {
     const { filepath, tags } = this.props.player;
