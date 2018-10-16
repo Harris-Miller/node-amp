@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import stateToProps from '../../utils/state-to-props';
+import classes from './styles.css';
 
 @connect(stateToProps('queue'))
 export default class Queue extends Component {
@@ -11,7 +12,7 @@ export default class Queue extends Component {
 
   render() {
     return (
-      <div>Queue</div>
+      <div className={classes.container}>Queue</div>
     );
   }
 }

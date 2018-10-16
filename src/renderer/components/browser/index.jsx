@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { ipcRenderer } from 'electron';
 import { setCurrentTrack } from '../../actions/player';
 import stateToProps from '../../utils/state-to-props';
-import classes from './index.css';
+import ActionableTextRow from '../shared/actionable-text-row';
+import classes from './styles.css';
 import { bind } from '../../utils/decorators';
 
 function sortFileByTitle(a, b) {
@@ -56,10 +57,10 @@ export default class Browser extends Component {
     return (
       <div className={classes.container}>
         <div className={classes.half}>
-          {artists.map(artist => <div key={artist}><button onClick={() => this.setArtist(artist)}>{artist}</button></div>)}
+          {artists.map(artist => <ActionableTextRow key={artist} onClick={() => this.setArtist(artist)}>{artist}</ActionableTextRow>)}
         </div>
         <div className={classes.half}>
-          {artistTracks && artistTracks.map(track => <div key={track.tags.title || track.filepath}><button onClick={() => this.setCurrentTrack(track)}>{track.tags.title || track.filepath}</button></div>)}
+          {artistTracks && artistTracks.map(track => <ActionableTextRow key={track.tags.title || track.filepath} onClick={() => this.setCurrentTrack(track)}>{track.tags.title || track.filepath}</ActionableTextRow>)}
         </div>
       </div>
     );

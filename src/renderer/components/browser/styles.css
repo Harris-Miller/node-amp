@@ -1,0 +1,9 @@
+.container {
+  flex: 2 0 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.half {
+  flex: 1 0 0;
+}

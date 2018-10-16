@@ -93,7 +93,8 @@ module.exports = {
                 options: {
                   ident: 'postcss',
                   plugins: () => [
-                    require('postcss-flexbugs-fixes')
+                    require('postcss-flexbugs-fixes'),
+                    require('postcss-nested')
                   ]
                 }
               }

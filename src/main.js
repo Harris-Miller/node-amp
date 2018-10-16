@@ -6,6 +6,7 @@ const path = require('path');
 const glob = require('glob');
 const { app, BrowserWindow } = require('electron');
 const isDev = process.env.NODE_ENV === 'development';
+const { buildAndSetApplicationMenu } = require('./main/menu');
 
 const debug = /--debug/.test(process.argv[2]);
 
@@ -88,6 +89,7 @@ function initialize() {
   }
 
   app.on('ready', () => {
+    buildAndSetApplicationMenu();
     createWindow();
   });
 
