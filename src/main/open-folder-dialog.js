@@ -10,7 +10,7 @@ function parseDir(dir) {
   const items = fs.readdirSync(dir);
 
   const musicFiles = items
-    .filter(item => /.mp3$/.test(path.extname(item)))
+    .filter(item => /\.mp3$/.test(path.extname(item)))
     .map(item => path.join(dir, item));
 
   const folders = items.filter(item => fs.statSync(path.join(dir, item)).isDirectory());
@@ -35,6 +35,20 @@ ipcMain.on('get-files-from-path', (event, dir) => {
   });
 });
 
+function openFolderDialog() {
+  return new Promise(resolve => {
+    dialog.showOpenDialog({
+      properties: ['openDirectory']
+    }, ([dir]) => {
+      if (dir) {
+        resolve(parseDir(dir));
+      } else {
+        resolve([]);
+      }
+    });
+  });
+}
+
 ipcMain.on('open-folder-dialog', event => {
   dialog.showOpenDialog({
     properties: ['openDirectory']
@@ -45,3 +59,7 @@ ipcMain.on('open-folder-dialog', event => {
     }
   });
 });
+
+module.exports = {
+  openFolderDialog
+};

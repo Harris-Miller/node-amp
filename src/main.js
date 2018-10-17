@@ -14,7 +14,7 @@ if (process.mas) {
   app.setName('Node Amp');
 }
 
-let mainWindow = null;
+global.MAIN_WINDOW = null;
 
 function makeSingleInstance() {
   if (process.mas) {
@@ -22,9 +22,9 @@ function makeSingleInstance() {
   }
 
   return app.makeSingleInstance(() => {
-    if (mainWindow) {
-      if (mainWindow.isMinimized()) mainWindow.restore();
-      mainWindow.focus();
+    if (MAIN_WINDOW) {
+      if (MAIN_WINDOW.isMinimized()) MAIN_WINDOW.restore();
+      MAIN_WINDOW.focus();
     }
   });
 }
@@ -68,23 +68,23 @@ function initialize() {
       // windowOptions.icon = path.join(__dirname, '/assets/app-icon/png/512.png');
     }
 
-    mainWindow = new BrowserWindow(windowOptions);
+    MAIN_WINDOW = new BrowserWindow(windowOptions);
     if (isDev) {
-      mainWindow.loadURL('http://localhost:3000/');
+      MAIN_WINDOW.loadURL('http://localhost:3000/');
     } else {
-      mainWindow.loadURL(path.join('file://', __dirname, '/index.html'));
+      MAIN_WINDOW.loadURL(path.join('file://', __dirname, '/index.html'));
     }
 
     // Launch fullscreen with DevTools open
     if (debug) {
-      mainWindow.webContents.openDevTools();
-      mainWindow.maximize();
+      MAIN_WINDOW.webContents.openDevTools();
+      MAIN_WINDOW.maximize();
       require('devtron').install();
       installExtensions();
     }
 
-    mainWindow.on('closed', () => {
-      mainWindow = null;
+    MAIN_WINDOW.on('closed', () => {
+      MAIN_WINDOW = null;
     });
   }
 
@@ -100,7 +100,7 @@ function initialize() {
   });
 
   app.on('activate', () => {
-    if (mainWindow === null) {
+    if (MAIN_WINDOW === null) {
       createWindow();
     }
   });

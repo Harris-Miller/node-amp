@@ -3,5 +3,8 @@
   "extends": ["eslint-config-harris/node-recommended", "eslint-config-harris/filenames"],
   "rules": {
     "no-console": 0
+  },
+  "globals": {
+    "MAIN_WINDOW": true
   }
 }

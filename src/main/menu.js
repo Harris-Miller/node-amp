@@ -1,7 +1,21 @@
 const { Menu } = require('electron');
+const { openFolderDialog } = require('./open-folder-dialog');
 
 function buildAndSetApplicationMenu() {
   const template = [{
+
+  }, {
+    label: 'File',
+    submenu: [
+      {
+        label: 'Add Folder',
+        async click() {
+          const files = await openFolderDialog();
+          MAIN_WINDOW.webContents.send('newfiles', files);
+        }
+      }
+    ]
+  }, {
     label: 'Edit',
     submenu: [
       { role: 'foo' }
