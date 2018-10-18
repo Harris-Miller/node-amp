@@ -1,14 +1,25 @@
 import immutable from 'immutable';
-import { SET_FILES } from '../actions/browser';
+import { ADD_NEW_PATHS, SET_PATH_INFO, CLEAR } from '../actions/browser';
 
 const defaultState = immutable.fromJS({
-  files: []
+  files: {}
 });
+
+function arrayOfPathsToStarterObject(arr) {
+  return arr.reduce((obj, key) => {
+    obj[key] = { filepath: key, processed: false };
+    return obj;
+  }, {});
+}
 
 export default (state = defaultState, action = {}) => {
   switch (action.type) {
-    case SET_FILES:
-      return state.set('files', new immutable.List(action.data));
+    case ADD_NEW_PATHS:
+      return state.mergeIn(['files'], new immutable.Map(arrayOfPathsToStarterObject(action.data)));
+    case SET_PATH_INFO:
+      return state.setIn(['files', action.path], action.info);
+    case CLEAR:
+      return state.set('files', new immutable.Map());
     default:
       return state;
   }

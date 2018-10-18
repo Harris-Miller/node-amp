@@ -10,7 +10,7 @@ import Wrapper from './components/wrapper';
 // import Main from './components/main';
 import StateDisplay from './components/state-display';
 // import { fetchFilesFromPath } from './actions/browser';
-import { setFiles } from './actions/browser';
+import { addNewPaths, clear } from './actions/browser';
 import './global-events';
 import './styles/index.css';
 
@@ -20,8 +20,12 @@ export default class App extends Component {
     // const homeDir = homedir();
     // fetchFilesFromPath(resolve(homeDir, 'Downloads'));
 
-    ipcRenderer.on('newfiles', (event, tracks) => {
-      store.dispatch(setFiles(tracks));
+    ipcRenderer.on('newfiles', (event, paths) => {
+      store.dispatch(addNewPaths(paths));
+    });
+
+    ipcRenderer.on('clear', () => {
+      store.dispatch(clear());
     });
   }
 

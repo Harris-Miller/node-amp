@@ -13,6 +13,12 @@ function buildAndSetApplicationMenu() {
           const files = await openFolderDialog();
           MAIN_WINDOW.webContents.send('newfiles', files);
         }
+      },
+      {
+        label: 'Clear',
+        click() {
+          MAIN_WINDOW.webContents.send('clear');
+        }
       }
     ]
   }, {

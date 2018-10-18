@@ -22,6 +22,13 @@ function parseDir(dir) {
   return musicFiles;
 }
 
+ipcMain.on('process-file', (event, filepath) => {
+  readfile(filepath)
+    .then(parseID3)
+    .then(tags => ({ filepath, tags }))
+    .then(info => event.sender.send('process-completed', filepath, info));
+});
+
 ipcMain.on('get-files-from-path', (event, dir) => {
   const files = parseDir(dir);
 

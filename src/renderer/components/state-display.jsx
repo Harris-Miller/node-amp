@@ -5,7 +5,10 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 const StateDisplay = ({ browser }) => (
   <div>
     <ul>
-      {browser.get('files').map(track => <li key={track}>{track}</li>)}
+      {browser.get('files').toArray().map(([track, info]) => {
+        const bgColor = info.processed ? 'white' : 'red';
+        return <li key={track} style={{ backgroundColor: bgColor }}>{track}</li>;
+      })}
     </ul>
   </div>
 );
