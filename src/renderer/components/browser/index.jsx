@@ -46,12 +46,12 @@ export default class Browser extends Component {
 
   render() {
     const { browser } = this.props;
-    const files = browser.get('files');
+    const files = browser.get('files').toList();
 
-    const artists = files.map(file => file.tags.artist || ' { no artist } ').toSet().sort();
+    const artists = files.map(info => info.tags.artist || ' { no artist } ').toSet().sort();
 
     const artistTracks = this.state.artist
-      ? files.filter(file => (this.state.artist === file.tags.artist) || ((this.state.artist === ' { no artist } ') && !file.tags.artist)).sort(sortFileByTitle)
+      ? files.filter(info => (this.state.artist === info.tags.artist) || ((this.state.artist === ' { no artist } ') && !info.tags.artist)).sort(sortFileByTitle)
       : null;
 
     return (
@@ -60,7 +60,7 @@ export default class Browser extends Component {
           {artists.map(artist => <ActionableTextRow key={artist} onClick={() => this.setArtist(artist)}>{artist}</ActionableTextRow>)}
         </div>
         <div className={classes.half}>
-          {artistTracks && artistTracks.map(track => <ActionableTextRow key={track.tags.title || track.filepath} onClick={() => this.setCurrentTrack(track)}>{track.tags.title || track.filepath}</ActionableTextRow>)}
+          {artistTracks && artistTracks.map(info => <ActionableTextRow key={info.tags.title || info.filepath} onClick={() => this.setCurrentTrack(info)}>{info.tags.title || info.filepath}</ActionableTextRow>)}
         </div>
       </div>
     );

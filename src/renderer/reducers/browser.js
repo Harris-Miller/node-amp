@@ -7,7 +7,7 @@ const defaultState = immutable.fromJS({
 
 function arrayOfPathsToStarterObject(arr) {
   return arr.reduce((obj, key) => {
-    obj[key] = { filepath: key, processed: false };
+    obj[key] = { filepath: key, processed: false, tags: {} };
     return obj;
   }, {});
 }

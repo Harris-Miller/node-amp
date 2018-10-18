@@ -6,9 +6,9 @@ import { ipcRenderer } from 'electron';
 import 'normalize.css';
 import store from './store';
 import Wrapper from './components/wrapper';
-// import Player from './components/player';
-// import Main from './components/main';
-import StateDisplay from './components/state-display';
+import Player from './components/player';
+import Main from './components/main';
+// import StateDisplay from './components/state-display';
 // import { fetchFilesFromPath } from './actions/browser';
 import { addNewPaths, clear } from './actions/browser';
 import './global-events';
@@ -33,7 +33,8 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <Wrapper>
-          <StateDisplay />
+          <Player />
+          <Main />
         </Wrapper>
       </Provider>
     );
