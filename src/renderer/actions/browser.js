@@ -22,9 +22,6 @@ export function addNewPaths(data) {
     });
 
     const unprocessed = getState().browser.get('files').filter(file => !file.processed);
-
-    console.log(unprocessed.toJS());
-
     const unprocessedIterator = unprocessed.entries();
 
     ipcRenderer.on('process-completed', (event, path, info) => {
@@ -45,6 +42,7 @@ export function addNewPaths(data) {
     let count = 0;
     let current = { done: false };
 
+    // do 8 max at a time, we don't want to try and do a 1000 at once
     while (count < 8 && !current.done) {
       current = unprocessedIterator.next();
       const [path] = current.value;

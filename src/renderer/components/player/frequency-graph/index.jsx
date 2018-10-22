@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import autobind from 'autobind-decorator';
 import Track from '../../../track';
 import { audioContext } from '../../../audio-context';
-import { bind } from '../../../utils/decorators';
 import classes from './style.css';
 
 export default class FrequecyGraph extends Component {
@@ -32,7 +32,7 @@ export default class FrequecyGraph extends Component {
     this.createBars();
   }
 
-  @bind
+  @autobind
   createBars() {
     requestAnimationFrame(this.createBars);
 

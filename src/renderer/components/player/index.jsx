@@ -7,6 +7,7 @@ import Pause from '@material-ui/icons/Pause';
 import Stop from '@material-ui/icons/Stop';
 import SkipPrevious from '@material-ui/icons/SkipPrevious';
 import SkipNext from '@material-ui/icons/SkipNext';
+import autobind from 'autobind-decorator';
 import stateToProps from '../../utils/state-to-props';
 import styles from './styles.css';
 import Track from '../../track';
@@ -16,7 +17,6 @@ import Gain from './gain';
 import FrequecyGraph from './frequency-graph';
 import Seek from './seek';
 import EQ from './eq';
-import { bind } from '../../utils/decorators';
 
 @connect(stateToProps('player'))
 export default class Player extends Component {
@@ -50,23 +50,23 @@ export default class Player extends Component {
     return this.track.muted ? 0 : this.track.volume;
   }
 
-  @bind
+  @autobind
   setVolume({ target }) {
     this.track.volume = target.value;
     this.forceUpdate(); // because of externally controlled value
   }
 
-  @bind
+  @autobind
   play() {
     this.track.play().catch(err => { throw err; });
   }
 
-  @bind
+  @autobind
   pause() {
     this.track.pause();
   }
 
-  @bind
+  @autobind
   stop() {
     this.track.stop();
   }

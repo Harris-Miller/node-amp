@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { bind } from '../../../utils/decorators';
+import autobind from 'autobind-decorator';
 
 export default class Gain extends Component {
   static propTypes = {
@@ -29,7 +29,7 @@ export default class Gain extends Component {
     }, 100);
   }
 
-  @bind
+  @autobind
   setCurrentTime({ target }) {
     this.props.track.seek(target.value);
     this.forceUpdate(); // because of externally controlled value

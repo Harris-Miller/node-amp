@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 import { ipcRenderer } from 'electron';
+import autobind from 'autobind-decorator';
 import { setCurrentTrack } from '../../actions/player';
 import stateToProps from '../../utils/state-to-props';
 import ActionableTextRow from '../shared/actionable-text-row';
 import classes from './styles.css';
-import { bind } from '../../utils/decorators';
 
 function sortFileByTitle(a, b) {
   const aTitle = a.tags.title || a.filepath;
@@ -29,17 +29,17 @@ export default class Browser extends Component {
     artist: null
   };
 
-  @bind
+  @autobind
   setCurrentTrack(file) {
     this.props.dispatch(setCurrentTrack(file));
   }
 
-  @bind
+  @autobind
   setArtist(artist) {
     this.setState({ artist });
   }
 
-  @bind
+  @autobind
   chooseFolder() {
     ipcRenderer.send('open-folder-dialog');
   }

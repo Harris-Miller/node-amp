@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import VolumeUp from '@material-ui/icons/VolumeUp';
 import VolumeMute from '@material-ui/icons/VolumeMute';
+import autobind from 'autobind-decorator';
 import Track from '../../../track';
-import { bind } from '../../../utils/decorators';
 
 export default class Gain extends Component {
   static propTypes = {
@@ -21,12 +21,12 @@ export default class Gain extends Component {
     this.props.track.gain.value = this.state.value;
   }
 
-  @bind
+  @autobind
   setVolume({ target }) {
     this.setState({ value: target.value });
   }
 
-  @bind
+  @autobind
   toggleMute() {
     this.setState(state => ({ isMuted: !state.isMuted }));
   }
