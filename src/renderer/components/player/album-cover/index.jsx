@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Album from '@material-ui/icons/Album';
 import styles from './styles.css';
+import { fileType } from '../../../types';
 
 const AlbumCover = ({ tags }) => {
-  const albumImage = tags && tags.image && tags.image.data
-    ? `data:image/png;base64,${tags.image.data.toString('base64')}`
+  // TODO: support multiple pictures
+  const albumImage = tags && tags.picture && Array.isArray(tags.picture) && tags.picture.length
+    ? `data:${tags.picture[0].data.format};base64,${btoa(String.fromCharCode.apply(null, tags.picture[0].data))}`
     : null;
 
   return (
@@ -19,7 +21,7 @@ const AlbumCover = ({ tags }) => {
 };
 
 AlbumCover.propTypes = {
-  tags: PropTypes.shape()
+  tags: PropTypes.shape(fileType)
 };
 
 AlbumCover.defaultProps = {

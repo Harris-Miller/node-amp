@@ -26,10 +26,11 @@
     "electron-log": "^2.2.17",
     "electron-settings": "^3.2.0",
     "glob": "^7.1.2",
-    "id3-parser": "^2.0.0",
     "immutable": "^4.0.0-rc.10",
+    "jsstore": "^2.8.0",
     "md5": "^2.2.1",
     "moment": "^2.22.2",
+    "music-metadata": "^3.1.4",
     "normalize.css": "^8.0.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
@@ -40,7 +41,8 @@
     "redux-localstorage": "^0.4.1",
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.3.0",
-    "update-electron-app": "^1.3.0"
+    "update-electron-app": "^1.3.0",
+    "worker-loader": "^1.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.1.0",

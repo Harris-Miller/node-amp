@@ -1,8 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const util = require('util');
-const readfile = util.promisify(fs.readFile);
-const { parse: parseID3 } = require('id3-parser');
+const mm = require('music-metadata');
 const { ipcMain, dialog } = require('electron');
 const debug = require('debug')('node-amp:open-folder-dialog');
 
@@ -23,9 +21,8 @@ function parseDir(dir) {
 }
 
 ipcMain.on('process-file', (event, filepath) => {
-  readfile(filepath)
-    .then(parseID3)
-    .then(tags => ({ filepath, tags }))
+  mm.parseFile(filepath)
+    .then(metadata => ({ filepath, tags: metadata.common, format: metadata.format }))
     .then(info => event.sender.send('process-completed', filepath, info));
 });
 
@@ -33,9 +30,8 @@ ipcMain.on('get-files-from-path', (event, dir) => {
   const files = parseDir(dir);
 
   Promise.all(files.map(filepath =>
-    readfile(filepath)
-      .then(parseID3)
-      .then(tags => ({ filepath, tags }))
+    mm.parseFile(filepath)
+      .then(metadata => ({ filepath, tags: metadata.common, format: metadata.format }))
   )).then(filesWithTags => {
     debug('get-files-from-path', filesWithTags);
     event.sender.send('new-files-from-path', filesWithTags);

@@ -17,11 +17,12 @@ import Gain from './gain';
 import FrequecyGraph from './frequency-graph';
 import Seek from './seek';
 import EQ from './eq';
+import { fileType } from '../../types';
 
 @connect(stateToProps('player'))
 export default class Player extends Component {
   static propTypes = {
-    player: PropTypes.shape().isRequired
+    player: PropTypes.shape(fileType).isRequired
   };
 
   constructor(props) {
