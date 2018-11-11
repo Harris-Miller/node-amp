@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const tagType = {
+export const tagShape = {
   album: PropTypes.string,
   artist: PropTypes.string,
   artists: PropTypes.arrayOf(PropTypes.string),
@@ -29,7 +29,7 @@ export const tagType = {
   year: PropTypes.number
 };
 
-export const formatType = {
+export const formatShape = {
   bitrate: PropTypes.number,
   codecProfile: PropTypes.string,
   dataformat: PropTypes.string,
@@ -41,8 +41,8 @@ export const formatType = {
   tagTypes: PropTypes.arrayOf(PropTypes.string)
 };
 
-export const fileType = {
+export const fileShape = {
   filepath: PropTypes.string,
-  format: PropTypes.shape(formatType),
-  tags: PropTypes.shape(tagType)
+  format: PropTypes.shape(formatShape),
+  tags: PropTypes.shape(tagShape)
 };

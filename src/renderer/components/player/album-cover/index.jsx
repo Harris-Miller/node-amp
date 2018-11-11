@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Album from '@material-ui/icons/Album';
 import styles from './styles.css';
-import { fileType } from '../../../types';
+import { fileShape } from '../../../types';
 
 const AlbumCover = ({ tags }) => {
   // TODO: support multiple pictures
@@ -21,7 +21,7 @@ const AlbumCover = ({ tags }) => {
 };
 
 AlbumCover.propTypes = {
-  tags: PropTypes.shape(fileType)
+  tags: PropTypes.shape(fileShape)
 };
 
 AlbumCover.defaultProps = {
