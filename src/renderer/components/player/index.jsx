@@ -20,7 +20,7 @@ import EQ from './eq';
 import { fileShape } from '../../types';
 
 @connect(stateToProps('player'))
-export default class Player extends Component {
+class Player extends Component {
   static propTypes = {
     player: PropTypes.shape(fileShape).isRequired
   };
@@ -111,3 +111,5 @@ export default class Player extends Component {
     );
   }
 }
+
+export default Player;

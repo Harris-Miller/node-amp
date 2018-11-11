@@ -19,7 +19,7 @@ function sortFileByTitle(a, b) {
 }
 
 @connect(stateToProps('player', 'browser'))
-export default class Browser extends Component {
+class Browser extends Component {
   static propTypes = {
     browser: ImmutablePropTypes.map.isRequired,
     dispatch: PropTypes.func.isRequired
@@ -66,3 +66,5 @@ export default class Browser extends Component {
     );
   }
 }
+
+export default Browser;

@@ -5,7 +5,7 @@ import stateToProps from '../../utils/state-to-props';
 import classes from './styles.css';
 
 @connect(stateToProps('queue'))
-export default class Queue extends Component {
+class Queue extends Component {
   // static propTypes = {
   //   queue: PropTypes.shape().isRequired
   // };
@@ -16,3 +16,5 @@ export default class Queue extends Component {
     );
   }
 }
+
+export default Queue;
