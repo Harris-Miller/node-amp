@@ -82,6 +82,7 @@ module.exports = {
   // You may want 'eval' instead if you prefer to see the compiled output in DevTools.
   // See the discussion in https://github.com/facebook/create-react-app/issues/343
   devtool: 'cheap-module-source-map',
+  target: 'electron-renderer',
   // These are the "entry points" to our application.
   // This means they will be the "root" imports that are included in JS bundle.
   entry: [
@@ -277,7 +278,10 @@ module.exports = {
             test: cssRegex,
             exclude: cssModuleRegex,
             use: getStyleLoaders({
-              importLoaders: 1
+              importLoaders: 1,
+              modules: true,
+              getLocalIdent: getCSSModuleLocalIdent,
+              camelCase: true
             })
           },
           // Adds support for CSS Modules (https://github.com/css-modules/css-modules)
@@ -287,7 +291,8 @@ module.exports = {
             use: getStyleLoaders({
               importLoaders: 1,
               modules: true,
-              getLocalIdent: getCSSModuleLocalIdent
+              getLocalIdent: getCSSModuleLocalIdent,
+              camelCase: true
             })
           },
           // Opt-in support for SASS (using .scss or .sass extensions).

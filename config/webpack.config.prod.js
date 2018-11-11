@@ -113,6 +113,7 @@ module.exports = {
   // We generate sourcemaps in production. This is slow but gives good results.
   // You can exclude the *.map files from the build during deployment.
   devtool: shouldUseSourceMap ? 'source-map' : false,
+  target: 'electron-renderer',
   // In production, we only want to load the app code.
   entry: [paths.appIndexJs],
   output: {
@@ -349,7 +350,10 @@ module.exports = {
             exclude: cssModuleRegex,
             loader: getStyleLoaders({
               importLoaders: 1,
-              sourceMap: shouldUseSourceMap
+              sourceMap: shouldUseSourceMap,
+              modules: true,
+              getLocalIdent: getCSSModuleLocalIdent,
+              camelCase: true
             }),
             // Don't consider CSS imports dead code even if the
             // containing package claims to have no side effects.
@@ -365,7 +369,8 @@ module.exports = {
               importLoaders: 1,
               sourceMap: shouldUseSourceMap,
               modules: true,
-              getLocalIdent: getCSSModuleLocalIdent
+              getLocalIdent: getCSSModuleLocalIdent,
+              camelCase: true
             })
           },
           // Opt-in support for SASS. The logic here is somewhat similar
