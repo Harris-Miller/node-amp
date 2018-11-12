@@ -13,7 +13,8 @@
     "start:watch": "electromon ./src/main.js --debug",
     "prepack": "check-for-leaks",
     "prepush": "check-for-leaks",
-    "webpack": "node scripts/start.js"
+    "webpack": "node scripts/start.js",
+    "webpack:build": "node scripts/build.js"
   },
   "dependencies": {
     "@material-ui/core": "^3.4.0",
@@ -26,7 +27,6 @@
     "electron-settings": "^3.2.0",
     "glob": "^7.1.3",
     "immutable": "^4.0.0-rc.10",
-    "jsstore": "^2.8.1",
     "md5": "^2.2.1",
     "moment": "^2.22.2",
     "music-metadata": "^3.1.6",
@@ -59,6 +59,7 @@
     "babel-loader": "^8.0.4",
     "babel-plugin-named-asset-import": "^0.2.3",
     "babel-preset-react-app": "^6.1.0",
+    "bfj": "^6.1.1",
     "case-sensitive-paths-webpack-plugin": "^2.1.2",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
@@ -89,14 +90,17 @@
     "jest": "^23.6.0",
     "jest-pnp-resolver": "^1.0.1",
     "jest-resolve": "^23.6.0",
+    "mini-css-extract-plugin": "^0.4.4",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.3",
     "npm-run-all": "^4.1.3",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
     "pnp-webpack-plugin": "^1.2.0",
     "postcss-flexbugs-fixes": "^4.1.0",
     "postcss-loader": "^3.0.0",
     "postcss-nested": "^4.1.0",
     "postcss-preset-env": "^6.4.0",
+    "postcss-safe-parser": "^4.0.1",
     "react-dev-tools": "^0.0.1",
     "react-dev-utils": "^6.1.1",
     "resolve": "^1.8.1",
@@ -110,8 +114,7 @@
     "webpack": "^4.25.1",
     "webpack-dev-server": "^3.1.10",
     "webpack-manifest-plugin": "^2.0.4",
-    "workbox-webpack-plugin": "^3.6.3",
-    "worker-loader": "^2.0.0"
+    "workbox-webpack-plugin": "^3.6.3"
   },
   "browserslist": [
     ">0.2%",

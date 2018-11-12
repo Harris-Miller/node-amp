@@ -72,7 +72,7 @@ function initialize() {
     if (isDev) {
       MAIN_WINDOW.loadURL('http://localhost:3000/');
     } else {
-      MAIN_WINDOW.loadURL(path.join('file://', __dirname, '/index.html'));
+      MAIN_WINDOW.loadURL(path.join('file://', __dirname, '../build/index.html'));
     }
 
     // Launch fullscreen with DevTools open

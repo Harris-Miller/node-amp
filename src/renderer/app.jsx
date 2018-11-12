@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-// import { resolve } from 'path';
-// import { homedir } from 'os';
 import { ipcRenderer } from 'electron';
 import 'normalize.css';
 import store from './store';
@@ -16,10 +14,6 @@ import './styles/index.css';
 
 export default class App extends Component {
   componentDidMount() {
-    // TODO: move this to be settable
-    // const homeDir = homedir();
-    // fetchFilesFromPath(resolve(homeDir, 'Downloads'));
-
     ipcRenderer.on('newfiles', (event, paths) => {
       store.dispatch(addNewPaths(paths));
     });

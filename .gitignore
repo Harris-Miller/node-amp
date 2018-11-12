@@ -7,7 +7,7 @@
 /coverage
 
 # production
-/src/renderer-build
+/build
 
 # misc
 .DS_Store

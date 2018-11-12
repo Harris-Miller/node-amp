@@ -26,6 +26,8 @@ function ensureSlash(inputPath, needsSlash) {
 
 const getPublicUrl = appPackageJson => envPublicUrl || require(appPackageJson).homepage;
 
+const localPath = path.join('file://', __dirname, '../build/');
+
 // We use `PUBLIC_URL` environment variable or "homepage" field to infer
 // "public path" at which the app is served.
 // Webpack needs to know it to put the right <script> hrefs into HTML even in
@@ -34,7 +36,7 @@ const getPublicUrl = appPackageJson => envPublicUrl || require(appPackageJson).h
 // like /todos/42/static/js/bundle.7289d.js. We have to know the root.
 function getServedPath(appPackageJson) {
   const publicUrl = getPublicUrl(appPackageJson);
-  const servedUrl = envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : '/');
+  const servedUrl = envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : localPath);
   return ensureSlash(servedUrl, true);
 }
 
@@ -68,10 +70,10 @@ const resolveModule = (resolveFn, filePath) => {
 // config after eject: we're in ./config/
 module.exports = {
   dotenv: resolveApp('.env'),
-  appPath: resolveApp('src/renderer/build'),
-  appBuild: resolveApp('assets'),
+  appPath: resolveApp('.'),
+  appBuild: resolveApp('build'),
   appPublic: resolveApp('public'),
-  appHtml: resolveApp('src/index.html'),
+  appHtml: resolveApp('public/index.html'),
   appIndexJs: resolveModule(resolveApp, 'src/renderer/index'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src/renderer'),
