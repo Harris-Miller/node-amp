@@ -1,5 +1,5 @@
 const { Menu } = require('electron');
-const { openFolderDialog } = require('./open-folder-dialog');
+const { openFolderDialog } = require('../actions/dialogs');
 
 function buildAndSetApplicationMenu() {
   const template = [{

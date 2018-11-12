@@ -25,7 +25,6 @@ export function addNewPaths(data) {
     const unprocessedIterator = unprocessed.entries();
 
     ipcRenderer.on('process-completed', (event, path, info) => {
-      console.log(path, info);
       dispatch({
         type: SET_PATH_INFO,
         path,
