@@ -1,8 +1,0 @@
-.container {
-  padding: 1px;
-
-  &:hover {
-    background-color: var(--gray);
-    cursor: pointer;
-  }
-}

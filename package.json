@@ -8,9 +8,10 @@
   "private": true,
   "scripts": {
     "lint": "eslint .",
-    "start": "electron ./src/main.js",
-    "start:debug": "electron ./src/main.js --debug",
-    "start:watch": "electromon ./src/main.js --debug",
+    "start": "electron ./main/index.js",
+    "start:debug": "electron ./main/index.js --debug",
+    "start:watch": "electromon ./main/index.js --debug",
+    "postinstall": "electron-builder install-app-deps",
     "prepack": "check-for-leaks",
     "prepush": "check-for-leaks",
     "webpack": "node scripts/start.js",
@@ -20,6 +21,8 @@
     "@material-ui/core": "^3.4.0",
     "@material-ui/icons": "^3.0.1",
     "autobind-decorator": "^2.1.0",
+    "bookshelf": "^0.13.3",
+    "bookshelf-json-columns": "^2.1.1",
     "devtron": "^1.4.0",
     "electron": "^3.0.8",
     "electron-debug": "^2.0.0",
@@ -27,6 +30,7 @@
     "electron-settings": "^3.2.0",
     "glob": "^7.1.3",
     "immutable": "^4.0.0-rc.10",
+    "knex": "^0.15.2",
     "md5": "^2.2.1",
     "moment": "^2.22.2",
     "music-metadata": "^3.1.6",
@@ -40,6 +44,7 @@
     "redux": "^4.0.1",
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.3.0",
+    "sqlite3": "^4.0.4",
     "update-electron-app": "^1.3.0"
   },
   "devDependencies": {
