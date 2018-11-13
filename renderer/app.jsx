@@ -14,10 +14,6 @@ import './styles/index.css';
 
 export default class App extends Component {
   componentDidMount() {
-    ipcRenderer.on('all-tracks-info-from-db', (event, data) => {
-      console.log(data);
-    });
-
     ipcRenderer.on('newtracks', (event, data) => {
       store.dispatch(addNewTracks(data));
     });

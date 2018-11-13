@@ -4,8 +4,7 @@ const Track = require('../../models/track');
 
 ipcMain.on('get-all-track-info-from-db', event => {
   Track.fetchAll().then(results => {
-    console.log(results.toJSON());
-    event.sender.send('all-tracks-info-from-db', results.toJSON());
+    event.sender.send('newtracks', results.toJSON());
   });
 });
 
