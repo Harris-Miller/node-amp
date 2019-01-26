@@ -1,7 +1,16 @@
 .container {
+  color: #FFFFFF;
   display: flex;
-  background-color: var(--gray);
-  height: 200px;
+  background-color: #282828;
+  padding: 15px;
+  height: 100px;
+  width: 100%;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+}
+
+.item {
+  display: flex;
 }

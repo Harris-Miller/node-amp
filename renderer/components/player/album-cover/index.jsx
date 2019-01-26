@@ -11,7 +11,7 @@ const AlbumCover = ({ tags }) => {
     : null;
 
   return (
-    <div className={styles.container}>
+    <div>
       {albumImage
         ? <img className={styles.albumImage} src={albumImage} alt="Album Cover" />
         : <div className={styles.missing}><Album /></div>

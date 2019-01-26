@@ -88,8 +88,14 @@ class Player extends Component {
 
     return (
       <div className={styles.container}>
+        <div className={styles.item}>
+          <AlbumCover tags={tags} />
+          <div>
+            <span>{trackInfo}</span>
+          </div>
+        </div>
         <span>{time.format('mm:ss')} - {duration.format('mm:ss')}</span>
-        <AlbumCover tags={tags} />
+        <Seek track={this.track} />
         <div>
           <div>
             <SkipPrevious />
@@ -102,11 +108,10 @@ class Player extends Component {
             <Gain track={this.track} />
           </div>
         </div>
-        <span>{trackInfo}</span>
-        <Seek track={this.track} />
+
         <EQ track={this.track} />
         {/* <Oscilloscope track={this.track} /> */}
-        <FrequecyGraph track={this.track} />
+        {/* <FrequecyGraph track={this.track} /> */}
       </div>
     );
   }

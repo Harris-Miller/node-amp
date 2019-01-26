@@ -1,18 +1,12 @@
-.container {
-  display: inline-block;
-  height: 100px;
-  width: 100px;
-}
-
 .album-image {
-  height: 100px;
-  width: 100px;
+  height: 70px;
+  width: 70px;
 }
 
 .missing {
-  border: 1px solid black;
-  height: 100px;
-  width: 100px;
+  border: 1px solid #FFFFFF;
+  height: 70px;
+  width: 70px;
   display: flex;
   align-items: center;
   justify-content: space-around;
