@@ -24,6 +24,7 @@
     "bookshelf": "^0.13.3",
     "bookshelf-json-columns": "^2.1.1",
     "btoa": "^1.2.1",
+    "classnames": "^2.2.6",
     "devtron": "^1.4.0",
     "electron": "^3.0.8",
     "electron-debug": "^2.0.0",

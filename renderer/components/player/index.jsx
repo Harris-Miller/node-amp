@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import PlayArrow from '@material-ui/icons/PlayArrow';
-import Pause from '@material-ui/icons/Pause';
-import Stop from '@material-ui/icons/Stop';
-import SkipPrevious from '@material-ui/icons/SkipPrevious';
-import SkipNext from '@material-ui/icons/SkipNext';
 import autobind from 'autobind-decorator';
 import stateToProps from '../../utils/state-to-props';
 import styles from './styles.css';
@@ -14,6 +9,7 @@ import Track from '../../track';
 import AlbumCover from './album-cover';
 import Gain from './gain';
 // import Oscilloscope from './oscilloscope';
+import Controls from './controls';
 import FrequecyGraph from './frequency-graph';
 import Seek from './seek';
 import EQ from './eq';
@@ -57,21 +53,6 @@ class Player extends Component {
     this.forceUpdate(); // because of externally controlled value
   }
 
-  @autobind
-  play() {
-    this.track.play().catch(err => { throw err; });
-  }
-
-  @autobind
-  pause() {
-    this.track.pause();
-  }
-
-  @autobind
-  stop() {
-    this.track.stop();
-  }
-
   render() {
     const { filepath, tags } = this.props.player;
 
@@ -94,16 +75,15 @@ class Player extends Component {
             <span>{trackInfo}</span>
           </div>
         </div>
-        <span>{time.format('mm:ss')} - {duration.format('mm:ss')}</span>
-        <Seek track={this.track} />
-        <div>
-          <div>
-            <SkipPrevious />
-            <PlayArrow onClick={this.play} />
-            <Pause onClick={this.pause} />
-            <Stop onClick={this.stop} />
-            <SkipNext />
+        <div className={styles.controls}>
+          <Controls track={this.track} />
+          <div className={styles.seek}>
+            <span>{time.format('mm:ss')}</span>
+            <Seek track={this.track} />
+            <span>{duration.format('mm:ss')}</span>
           </div>
+        </div>
+        <div>
           <div>
             <Gain track={this.track} />
           </div>

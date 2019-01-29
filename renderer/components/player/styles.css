@@ -14,3 +14,22 @@
 .item {
   display: flex;
 }
+
+.controls {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.seek {
+  display: flex;
+  align-items: center;
+
+  span:first-child {
+    margin-right: 10px;
+  }
+
+  span:last-child {
+    margin-left: 10px;
+  }
+}

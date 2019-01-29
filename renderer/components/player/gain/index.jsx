@@ -4,6 +4,8 @@ import VolumeUp from '@material-ui/icons/VolumeUp';
 import VolumeMute from '@material-ui/icons/VolumeMute';
 import autobind from 'autobind-decorator';
 import Track from '../../../track';
+import Range from '../../shared/range';
+import styles from './styles.css';
 
 export default class Gain extends Component {
   static propTypes = {
@@ -22,8 +24,8 @@ export default class Gain extends Component {
   }
 
   @autobind
-  setVolume({ target }) {
-    this.setState({ value: target.value });
+  setVolume(percent) {
+    this.setState({ value: percent / 100 });
   }
 
   @autobind
@@ -42,18 +44,16 @@ export default class Gain extends Component {
     track.gain.value = isMuted ? 0 : value;
 
     return (
-      <span>
+      <div className={styles.gain} >
         {volumeControl}
-        <input
-          type="range"
-          min={0}
+        <Range
+          style={{ width: '100px' }}
           max={1}
-          step={0.05}
-          onChange={this.setVolume}
           value={track.gain.value}
+          onChange={this.setVolume}
           disabled={isMuted}
         />
-      </span>
+      </div>
     );
   }
 }

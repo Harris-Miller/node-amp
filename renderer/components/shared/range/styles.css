@@ -1,0 +1,35 @@
+.container {
+  background-color: #404040;
+  position: relative;
+  height: 5px;
+  border-radius: 2.5px;
+
+  &.holding, &:hover {
+    .marker {
+      display: block;
+    }
+
+    .elapsed {
+      background-color: #2AAA54;
+    }
+  }
+}
+
+.elapsed {
+  background-color: #B3B3B3;
+  position: relative;
+  left: 0;
+  height: 5px;
+  border-radius: 2.5px;
+}
+
+.marker {
+  display: none;
+  background-color: #FFFFFF;
+  position: relative;
+  height: 7.5px;
+  width: 7.5px;
+  border-radius: 3.75px;
+  left: 0;
+  top: -6.5px; /* not sure what the deal with this is. i feel like it should just be top: 0; weird shit yo */
+}
