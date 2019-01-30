@@ -84,9 +84,7 @@ class Player extends Component {
           </div>
         </div>
         <div>
-          <div>
-            <Gain track={this.track} />
-          </div>
+          <Gain track={this.track} />
         </div>
 
         <EQ track={this.track} />

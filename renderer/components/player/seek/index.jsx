@@ -30,9 +30,7 @@ export default class Gain extends Component {
   }
 
   @autobind
-  onRangeChange(percent) {
-    const newTrackPosition = (percent / 100) * this.state.max;
-
+  onRangeChange(newTrackPosition) {
     this.props.track.seek(newTrackPosition);
     this.forceUpdate(); // because of externally controlled value
   }
@@ -41,7 +39,7 @@ export default class Gain extends Component {
     const { current, max } = this.state;
     return (
       <Range
-        style={{ width: '300px' }}
+        length="300px"
         value={current}
         max={max}
         onChange={this.onRangeChange}

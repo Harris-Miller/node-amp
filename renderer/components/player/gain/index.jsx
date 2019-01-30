@@ -24,8 +24,8 @@ export default class Gain extends Component {
   }
 
   @autobind
-  setVolume(percent) {
-    this.setState({ value: percent / 100 });
+  setVolume(value) {
+    this.setState({ value });
   }
 
   @autobind
@@ -47,7 +47,8 @@ export default class Gain extends Component {
       <div className={styles.gain} >
         {volumeControl}
         <Range
-          style={{ width: '100px' }}
+          width="100px"
+          step={0.05}
           max={1}
           value={track.gain.value}
           onChange={this.setVolume}
