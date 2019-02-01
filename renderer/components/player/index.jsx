@@ -8,7 +8,7 @@ import styles from './styles.css';
 import Track from '../../track';
 import AlbumCover from './album-cover';
 import Gain from './gain';
-// import Oscilloscope from './oscilloscope';
+import Oscilloscope from './oscilloscope';
 import Controls from './controls';
 import FrequecyGraph from './frequency-graph';
 import Seek from './seek';
@@ -27,7 +27,8 @@ class Player extends Component {
     this.track = new Track();
 
     this.state = {
-      currentTime: 0
+      currentTime: 0,
+      swap: false
     };
 
     this.followTime = setInterval(() => {
@@ -51,6 +52,11 @@ class Player extends Component {
   setVolume({ target }) {
     this.track.volume = target.value;
     this.forceUpdate(); // because of externally controlled value
+  }
+
+  @autobind
+  swapVisual() {
+    this.setState({ swap: !this.state.swap });
   }
 
   render() {
@@ -86,10 +92,13 @@ class Player extends Component {
         <div>
           <Gain track={this.track} />
         </div>
-
+        <div onClick={this.swapVisual}>
+          {this.state.swap
+            ? <Oscilloscope track={this.track} />
+            : <FrequecyGraph track={this.track} />
+          }
+        </div>
         <EQ track={this.track} />
-        {/* <Oscilloscope track={this.track} /> */}
-        {/* <FrequecyGraph track={this.track} /> */}
       </div>
     );
   }

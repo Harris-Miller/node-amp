@@ -26,15 +26,19 @@ export default class FrequecyGraph extends Component {
   }
 
   componentDidMount() {
-    this.WIDTH = (this.bufferLength / 4) + (this.bufferLength / 16);
+    this.WIDTH = 320; // 64 * 5, 65 bars, 5px per bar
     this.HEIGHT = 100;
 
     this.createBars();
   }
 
+  componentWillUnmount() {
+    cancelAnimationFrame(this.frameId);
+  }
+
   @autobind
   createBars() {
-    requestAnimationFrame(this.createBars);
+    this.frameId = requestAnimationFrame(this.createBars);
 
     this.analyser.getByteFrequencyData(this.dataArray);
 
@@ -42,8 +46,8 @@ export default class FrequecyGraph extends Component {
 
     const bars = [];
 
-    for (let i = 0; i < this.bufferLength; i += 16) {
-      const barHeight = (this.dataArray[i] / 255) * 100;
+    for (let i = 0; i < this.bufferLength; i += 16) { // we don't need to read every single one, multipes of 16 is fine
+      const barHeight = (this.dataArray[i] / 255) * 100; // height is a range of 0 to 100
 
       bars.push(<div key={i} style={{ backgroundColor: `rgb(50,${barHeight + 150},50)`, height: `${barHeight}px`, width: `${barWidth}px`, marginRight: 1 }} />);
     }

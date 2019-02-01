@@ -8,7 +8,7 @@ export default class Track {
 
     // https://www.google.com/search?q=10+band+eq+Q+values&oq=10+band+eq+Q+values&aqs=chrome..69i57j69i60.4390j1j4&sourceid=chrome&ie=UTF-8
     // first result PDF
-    // [tuple<freq, Q>]
+    // [tuple<freq, Q, display>]
     this.eqPairs = [
       [31.5, 4.3],
       [63, 2.9],
@@ -40,7 +40,7 @@ export default class Track {
       }
     });
 
-    this.filters[5].connect(this.gainControl);
+    this.filters[this.filters.length - 1].connect(this.gainControl);
 
     this.gainControl.connect(audioContext.destination);
   }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import autobind from 'autobind-decorator';
+import NumberSuffix from 'number-suffix';
 import Range from '../../shared/range';
 import Track from '../../../track';
 import classes from './styles.css';
@@ -13,7 +14,6 @@ export default class EQ extends Component {
   @autobind
   adjustFreqGain(i) {
     return value => {
-      console.log(value);
       this.props.track.filters[i].gain.value = value;
       this.forceUpdate(); // because of externally controlled value
     };
@@ -41,10 +41,15 @@ export default class EQ extends Component {
           isVertical
         />
       );
+
+      const displayValue = filter.frequency.value < 1000
+        ? filter.frequency.value
+        : NumberSuffix.format(filter.frequency.value);
+
       return (
         <div key={filter.frequency.value} className={classes.freq}>
           {input}
-          <div>{filter.frequency.value}</div>
+          <div>{displayValue}</div>
         </div>
       );
     });

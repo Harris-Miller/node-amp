@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import autobind from 'autobind-decorator';
 import Track from '../../../track';
 import { audioContext } from '../../../audio-context';
-import { bind } from '../../../utils/decorators';
 
 export default class Oscilloscope extends Component {
   static propTypes = {
@@ -23,33 +23,42 @@ export default class Oscilloscope extends Component {
   }
 
   componentDidMount() {
-    // this.canvas.width = 300;
-    // this.canvas.height = 100;
+    const canvas = this.canvas.current;
+    canvas.width = 320;
+    canvas.height = 100;
 
-    this.canvasCtx = this.canvas.getContext('2d');
+    this.canvasCtx = canvas.getContext('2d');
     this.draw();
   }
 
-  @bind
+  componentWillUnmount() {
+    cancelAnimationFrame(this.frameId);
+  }
+
+  canvas = React.createRef();
+
+  @autobind
   draw() {
-    requestAnimationFrame(this.draw);
+    const canvas = this.canvas.current;
+
+    this.frameId = requestAnimationFrame(this.draw);
 
     this.analyser.getByteTimeDomainData(this.dataArray);
 
-    this.canvasCtx.fillStyle = 'rgb(230, 230, 230)';
-    this.canvasCtx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    this.canvasCtx.fillStyle = '#282828';
+    this.canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
 
     this.canvasCtx.lineWidth = 2;
-    this.canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
+    this.canvasCtx.strokeStyle = '#2AAA54';
 
     this.canvasCtx.beginPath();
 
-    const sliceWidth = (this.canvas.width * 1.0) / this.bufferLength;
+    const sliceWidth = (canvas.width * 1.0) / this.bufferLength;
     let x = 0;
 
     for (let i = 0; i < this.bufferLength; i++) {
       const v = this.dataArray[i] / 128.0;
-      const y = (v * this.canvas.height) / 2;
+      const y = (v * canvas.height) / 2;
 
       if (i === 0) {
         this.canvasCtx.moveTo(x, y);
@@ -60,11 +69,11 @@ export default class Oscilloscope extends Component {
       x += sliceWidth;
     }
 
-    this.canvasCtx.lineTo(this.canvas.width, this.canvas.height / 2);
+    this.canvasCtx.lineTo(canvas.width, canvas.height / 2);
     this.canvasCtx.stroke();
   }
 
   render() {
-    return <canvas ref={node => { this.canvas = node; }} />;
+    return <canvas ref={this.canvas} />;
   }
 }

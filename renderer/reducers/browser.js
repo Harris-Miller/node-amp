@@ -6,7 +6,6 @@ const defaultState = immutable.fromJS({
 });
 
 function arrayToKeyedObject(arr) {
-  console.log(arr);
   return arr.reduce((obj, trackObj) => {
     obj[trackObj.filepath] = trackObj;
     return obj;

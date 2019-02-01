@@ -1,7 +1,7 @@
 .container {
-  color: #FFFFFF;
+  color: var(--white);
   display: flex;
-  background-color: #282828;
+  background-color: var(--gray-bg);
   padding: 15px;
   height: 100px;
   width: 100%;

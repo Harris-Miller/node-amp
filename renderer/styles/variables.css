@@ -15,9 +15,11 @@
   --black: #111111;
   --gray: #AAAAAA;
   --silver: #DDDDDD;
+  --white: #FFFFFF;
 
   --black-bg: #08090a;
   --main-bg: #2D3336;
+  --gray-bg: #282828;
 
   --tab-highlighted: #50565d;
 }

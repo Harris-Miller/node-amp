@@ -1,6 +1,6 @@
 .graph {
   display: flex;
-  background-color: var(--black);
+  background-color: var(--gray-bg);
   flex-direction: row;
   align-items: flex-end;
 }
